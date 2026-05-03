@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMC but not SimpleSwap</title>
+    <meta name="description" content="Tokens listed on CMC but not available on SimpleSwap sorted by 24h vol">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</head>
+<body>
+    <main class="shell">
+        <section class="hero">
+            <div class="hero__copy">
+                <p class="eyebrow">Market gap monitor</p>
+                <h1>CMC but not SimpleSwap</h1>
+                <p class="lede">Tokens listed on CoinMarketCap that are not currently available on SimpleSwap, ranked by 24-hour trading volume.</p>
+            </div>
+
+            <div class="hero__panel" aria-label="Top unavailable token">
+                <span class="panel-label">Top opportunity</span>
+                {% if top_coin %}
+                    <a class="top-symbol" href="{{ top_coin.url }}" target="_blank" rel="noreferrer">{{ top_coin.symbol }}</a>
+                    <span class="top-volume">{{ "${:,.0f}".format(top_coin.volume_24h) }}</span>
+                    <span class="panel-note">24h volume</span>
+                {% else %}
+                    <span class="top-symbol">None</span>
+                    <span class="panel-note">No tokens found</span>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="stats" aria-label="Summary">
+            <article class="stat">
+                <span class="stat__label">Unavailable tokens</span>
+                <strong>{{ "{:,}".format(total_coins) }}</strong>
+            </article>
+            <article class="stat">
+                <span class="stat__label">Combined 24h volume</span>
+                <strong>{{ "${:,.0f}".format(total_volume) }}</strong>
+            </article>
+            <article class="stat">
+                <span class="stat__label">Source coverage</span>
+                <strong>CMC / SimpleSwap</strong>
+            </article>
+        </section>
+
+        <section class="toolbar" aria-label="Table controls">
+            <label class="search">
+                <span>Search token</span>
+                <input id="coin-search" type="search" placeholder="BTC, ETH, SOL..." autocomplete="off">
+            </label>
+            <p class="result-count"><span id="visible-count">{{ total_coins }}</span> shown</p>
+        </section>
+
+        <section class="table-wrap" aria-label="Tokens listed on CMC but missing from SimpleSwap">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Token</th>
+                        <th scope="col">24h volume</th>
+                    </tr>
+                </thead>
+                <tbody id="coin-table">
+                    {% for coin in coins %}
+                        <tr data-symbol="{{ coin.symbol }}">
+                            <td><span class="rank">{{ loop.index }}</span></td>
+                            <td>
+                                <a class="coin-link" href="{{ coin.url }}" target="_blank" rel="noreferrer">
+                                    <span class="coin-mark" aria-hidden="true">
+                                        {% if coin.icon_id %}
+                                            <img src="{{ url_for('evercodelab.cmc_icon', coin_id=coin.icon_id) }}" alt="" loading="lazy" onerror="this.remove()">
+                                        {% endif %}
+                                        <span>{{ coin.symbol[:2] }}</span>
+                                    </span>
+                                    <span>{{ coin.symbol }}</span>
+                                </a>
+                            </td>
+                            <td class="volume">{{ "${:,.0f}".format(coin.volume_24h) }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p class="empty-state" id="empty-state" hidden>No matching tokens found.</p>
+        </section>
+    </main>
+</body>
+</html>
