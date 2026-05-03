@@ -27,7 +27,7 @@ gaps.
 │   │   ├── app.js               # Table filtering
 │   │   └── styles.css           # UI styling
 │   └── templates/
-│       └── evercodelab.html     # Dashboard template
+│       └── dashboard.html       # Dashboard template
 ├── main.py                      # Local development entrypoint
 ├── wsgi.py                      # Production WSGI entrypoint
 ├── Procfile                     # Gunicorn process definition
@@ -51,7 +51,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-Open http://localhost:5001/evercodelab.
+Open http://localhost:5001/cmc-but-not-simpleswap.
 
 The root route also redirects to the dashboard:
 

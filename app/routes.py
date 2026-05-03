@@ -5,12 +5,12 @@ from app.clients import fetch_cmc_icon
 from app.services import get_cmc_only_coins
 
 
-bp = Blueprint("evercodelab", __name__)
+bp = Blueprint("dashboard", __name__)
 
 
 @bp.route("/")
 def index():
-    return redirect(url_for("evercodelab.evercodelab"))
+    return redirect(url_for("dashboard.cmc_but_not_simpleswap"))
 
 
 @bp.route("/health")
@@ -18,11 +18,11 @@ def health():
     return {"status": "ok"}
 
 
-@bp.route("/evercodelab")
-def evercodelab():
+@bp.route("/cmc-but-not-simpleswap")
+def cmc_but_not_simpleswap():
     coins = get_cmc_only_coins()
     return render_template(
-        "evercodelab.html",
+        "dashboard.html",
         coins=coins,
         total_coins=len(coins),
         total_volume=sum(coin["volume_24h"] for coin in coins),

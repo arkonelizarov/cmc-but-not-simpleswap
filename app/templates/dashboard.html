@@ -70,7 +70,7 @@
                                 <a class="coin-link" href="{{ coin.url }}" target="_blank" rel="noreferrer">
                                     <span class="coin-mark" aria-hidden="true">
                                         {% if coin.icon_id %}
-                                            <img src="{{ url_for('evercodelab.cmc_icon', coin_id=coin.icon_id) }}" alt="" loading="lazy" onerror="this.remove()">
+                                            <img src="{{ url_for('dashboard.cmc_icon', coin_id=coin.icon_id) }}" alt="" loading="lazy" onerror="this.remove()">
                                         {% endif %}
                                         <span>{{ coin.symbol[:2] }}</span>
                                     </span>
