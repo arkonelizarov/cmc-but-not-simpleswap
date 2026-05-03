@@ -1,10 +1,9 @@
-# EVRCD
+# CMC but not SimpleSwap
 
-EVRCD is a small Flask dashboard that highlights crypto assets listed on
-CoinMarketCap but not currently available on SimpleSwap. The list is sorted by
-24-hour trading volume, making it easier to spot high-volume listing gaps.
-
-Production URL: https://arkonelizarov.co/evercodelab
+CMC but not SimpleSwap is a small Flask dashboard that highlights crypto assets
+listed on CoinMarketCap but not currently available on SimpleSwap. The list is
+sorted by 24-hour trading volume, making it easier to spot high-volume listing
+gaps.
 
 ## Features
 
